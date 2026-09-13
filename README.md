@@ -1,55 +1,83 @@
 NovaCore
 
-NovaCore is a lightweight, customizable desktop shell for Windows 11, designed as an alternative to the default Windows Explorer shell.
+NovaCore is an ongoing project focused on developing a lightweight, customizable desktop environment for Windows 11.
 
-The project provides the core components of a desktop environment, including a custom desktop, taskbar, Start menu, file manager, context menus, Recycle Bin integration, power controls, and fullscreen application detection. NovaCore can also be configured to run as a replacement for explorer.exe.
+The project is built around the idea of providing a modular alternative to the standard Windows desktop experience, with individual components developed independently and gradually integrated into a unified environment.
 
-The main goal is to provide a simpler and more responsive Windows desktop experience while keeping the implementation modular and easy to extend.
+NovaCore is currently in an early stage of development. TinyShell is one of the first major components of the project, focusing on the Windows shell and providing the foundation for replacing and extending parts of the default explorer.exe experience.
 
-Features
-Custom desktop environment with persistent icon layouts
-Lightweight taskbar with multi-monitor support
-Start menu for launching and managing applications
-Built-in file manager with basic file operations
-Windows Recycle Bin integration
-Desktop and application context menus
-Automatic taskbar hiding for fullscreen applications
-Shutdown, restart, sleep, and sign-out controls
-Local configuration and persistent desktop settings
-Optional Windows system and UI tweaks
-Support for running NovaCore as the Windows shell
-Design Goals
+Project Structure
 
-NovaCore is focused on simplicity, performance, and customization rather than reproducing the entire Windows Explorer experience.
+NovaCore is not limited to a single application or shell. It is intended to serve as the foundation for a collection of components that together form a complete desktop environment.
 
-The project aims to provide only the components required for a functional desktop environment while leaving room for users and developers to customize or extend the shell according to their needs.
+TinyShell
 
-Current Status
+TinyShell is the current shell-focused component of NovaCore.
 
-NovaCore is an experimental project and is still under active development. Some Windows shell functionality is not yet implemented, including system tray hosting, UWP application launching through AppUserModelID, multi-icon marquee selection, and dedicated vertical taskbar layouts.
+It provides the basic functionality required for a custom Windows shell, including:
 
-Because NovaCore can replace the Windows Explorer shell, it should be considered experimental software. Testing it in a controlled environment is recommended.
+Custom desktop
+Taskbar
+Start menu
+File manager
+Desktop icons and persistent layouts
+Context menus
+Recycle Bin integration
+Fullscreen application detection
+Power management controls
+Multi-monitor support
+Persistent configuration
+Optional Explorer shell replacement
+
+TinyShell is currently the primary development focus and serves as a foundation for future NovaCore components.
+
+Goals
+
+NovaCore aims to provide a desktop environment that is:
+
+Lightweight
+Modular
+Customizable
+Responsive
+Native to Windows
+Easy to extend
+
+Rather than modifying the existing Windows desktop indefinitely, the project explores what a Windows desktop could look like when its core components are implemented independently.
+
+The goal is not to reproduce every feature of Windows Explorer, but to build a clean foundation that can be expanded as the project develops.
+
+Development
+
+NovaCore is an ongoing project and should be considered experimental software.
+
+The architecture, APIs, components, and user interface may change significantly during development. Some functionality is incomplete, and current components should not be considered production-ready.
+
+Future development may include additional desktop components, improved shell integration, application management, notification area support, improved window management, and further customization options.
 
 Technology
 
-NovaCore is written in C# using WPF and integrates with Windows through native Shell and system APIs.
+The current implementation is primarily written in C# using WPF, with integration into Windows through native Win32 and Windows Shell APIs.
 
-The project is structured around several independent components responsible for desktop management, taskbar functionality, file operations, Windows Shell integration, fullscreen detection, power management, and configuration persistence.
+The project makes use of native Windows functionality where appropriate rather than attempting to reimplement operating-system functionality unnecessarily.
 
-Project Direction
+Current Status
 
-The long-term goal of NovaCore is to evolve into a complete, lightweight, and extensible desktop shell for Windows 11.
+NovaCore is not finished.
 
-Rather than modifying the existing Windows desktop, NovaCore explores the possibility of building a desktop environment from the ground up while maintaining compatibility with the Windows platform.
+The current implementation represents an early stage of a larger project rather than a completed desktop environment. TinyShell currently provides the most developed part of the system, while other parts of the NovaCore architecture are still planned or under development.
+
+Expect incomplete functionality, bugs, breaking changes, and architectural changes as development continues.
 
 Disclaimer
 
-NovaCore is an unfinished and experimental project currently under active development. Features may be incomplete, unstable, or subject to significant changes without notice.
+NovaCore is provided "as is" and is intended primarily for experimentation, development, and testing.
 
-The software is provided "as is", without any warranties or guarantees of functionality, reliability, compatibility, or suitability for a particular purpose.
+The project is unfinished and may contain bugs or behave unexpectedly. Features may be incomplete, unstable, or removed or changed without notice.
 
-By using NovaCore, you acknowledge that you do so at your own risk. The author is not responsible for any data loss, system instability, configuration changes, software conflicts, or other damage that may result from using the project.
+Using NovaCore, particularly as a replacement for the Windows Explorer shell, is done entirely at your own risk.
 
-NovaCore may replace or interfere with the Windows Explorer shell and other system components. Users should therefore test the software in a controlled environment and maintain appropriate backups before using it as their primary Windows shell.
+The author provides no guarantee regarding stability, reliability, compatibility, data integrity, or suitability for any particular purpose and assumes no responsibility for data loss, system instability, software conflicts, configuration changes, or any other damage resulting from the use of the project.
 
-This project is not affiliated with, endorsed by, or supported by Microso
+Users should maintain appropriate backups and should test NovaCore in a controlled environment before using it as their primary desktop shell.
+
+NovaCore is not affiliated with, endorsed by, or supported by Microsoft.
