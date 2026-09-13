@@ -1,0 +1,137 @@
+<Window x:Class="TinyShell.Debloat.DebloatWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="TinyShell // DEBLOAT.SYS" Height="760" Width="920"
+        Background="{StaticResource BgVoid}" Foreground="{StaticResource TextBrush}"
+        FontFamily="{StaticResource MonoFont}"
+        WindowStartupLocation="CenterScreen">
+
+  <Window.Resources>
+    <Style TargetType="TextBlock">
+      <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+    </Style>
+  </Window.Resources>
+
+  <Grid Margin="18">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="150"/>
+    </Grid.RowDefinitions>
+
+    <!-- Header -->
+    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,4">
+      <TextBlock Text="TINYSHELL" Foreground="{StaticResource Cyan}" FontWeight="Bold" FontSize="20"/>
+      <TextBlock Text=" // DEBLOAT.SYS" Foreground="{StaticResource Magenta}" FontSize="20"/>
+    </StackPanel>
+    <TextBlock Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top"
+               Text="root@tinyshell:~$" Foreground="{StaticResource Muted}" FontSize="11"/>
+
+    <!-- Presets + search -->
+    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,14,0,8">
+      <Button Content="SAFE"       Style="{StaticResource NeonButtonGhost}" Click="PresetSafe_Click"/>
+      <Button Content="BALANCED"   Style="{StaticResource NeonButtonGhost}" Click="PresetBalanced_Click"/>
+      <Button Content="AGGRESSIVE" Style="{StaticResource NeonButtonGhost}" Click="PresetAggressive_Click"/>
+      <Button Content="NONE"       Style="{StaticResource NeonButtonGhost}" Click="PresetNone_Click"/>
+      <TextBox x:Name="SearchBox" Width="220" Margin="16,0,0,0" Style="{StaticResource NeonTextBox}"
+               TextChanged="SearchBox_TextChanged"
+               ToolTip="Filter tweaks by name or description"/>
+      <TextBlock x:Name="Summary" VerticalAlignment="Center" Margin="16,0,0,0" Foreground="{StaticResource Muted}"/>
+    </StackPanel>
+
+    <!-- Restore point option (previously advertised but not implemented) -->
+    <Border Grid.Row="2" Background="{StaticResource BgCard}" BorderBrush="{StaticResource Amber}"
+            BorderThickness="1" CornerRadius="2" Padding="10,8" Margin="0,0,0,10">
+      <StackPanel Orientation="Horizontal">
+        <CheckBox x:Name="RestorePointCheck" Style="{StaticResource NeonCheckBox}" IsChecked="True"/>
+        <TextBlock Text="Create a System Restore checkpoint before applying" Margin="8,0,0,0"
+                   Foreground="{StaticResource Amber}" FontSize="12" VerticalAlignment="Center"/>
+      </StackPanel>
+    </Border>
+
+    <!-- Catalog -->
+    <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto">
+      <ItemsControl x:Name="GroupsHost">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <GroupBox Header="{Binding Name}" Style="{StaticResource NeonGroupBox}">
+              <ItemsControl ItemsSource="{Binding Items}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <Grid Margin="4,6">
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                      </Grid.ColumnDefinitions>
+
+                      <CheckBox Grid.Column="0" Style="{StaticResource NeonCheckBox}"
+                                IsChecked="{Binding Selected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                VerticalAlignment="Top" Margin="0,2,10,0"/>
+
+                      <StackPanel Grid.Column="1">
+                        <TextBlock Text="{Binding Name}" FontSize="13"/>
+                        <TextBlock Text="{Binding Desc}" FontSize="11"
+                                   Foreground="{StaticResource Muted}" TextWrapping="Wrap"/>
+                      </StackPanel>
+
+                      <Border Grid.Column="2" CornerRadius="2" Padding="7,2" BorderThickness="1"
+                              VerticalAlignment="Top">
+                        <Border.Style>
+                          <Style TargetType="Border">
+                            <Setter Property="Background" Value="#0E1522"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource Cyan}"/>
+                            <Style.Triggers>
+                              <DataTrigger Binding="{Binding Risk}" Value="Moderate">
+                                <Setter Property="BorderBrush" Value="{StaticResource Amber}"/>
+                              </DataTrigger>
+                              <DataTrigger Binding="{Binding Risk}" Value="Aggressive">
+                                <Setter Property="BorderBrush" Value="{StaticResource Red}"/>
+                              </DataTrigger>
+                            </Style.Triggers>
+                          </Style>
+                        </Border.Style>
+                        <TextBlock Text="{Binding Risk}" FontSize="10">
+                          <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                              <Setter Property="Foreground" Value="{StaticResource Cyan}"/>
+                              <Style.Triggers>
+                                <DataTrigger Binding="{Binding Risk}" Value="Moderate">
+                                  <Setter Property="Foreground" Value="{StaticResource Amber}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Risk}" Value="Aggressive">
+                                  <Setter Property="Foreground" Value="{StaticResource Red}"/>
+                                </DataTrigger>
+                              </Style.Triggers>
+                            </Style>
+                          </TextBlock.Style>
+                        </TextBlock>
+                      </Border>
+                    </Grid>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </GroupBox>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </ScrollViewer>
+
+    <!-- Actions -->
+    <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,12,0,8">
+      <Button x:Name="RunButton" Content="EXECUTE" Style="{StaticResource NeonButtonPrimary}" Click="Run_Click"/>
+      <Button Content="REFRESH" Style="{StaticResource NeonButtonGhost}" Click="Refresh_Click"/>
+      <TextBlock x:Name="Status" VerticalAlignment="Center" Margin="16,0,0,0" Foreground="{StaticResource Muted}"/>
+    </StackPanel>
+
+    <!-- Console log -->
+    <Border Grid.Row="5" Background="{StaticResource BgVoid}" BorderBrush="{StaticResource GridLine}" BorderThickness="1">
+      <TextBox x:Name="Log" IsReadOnly="True" Background="Transparent" BorderThickness="0"
+               Foreground="{StaticResource Cyan}" FontFamily="{StaticResource MonoFont}" FontSize="11"
+               VerticalScrollBarVisibility="Auto" Padding="10"/>
+    </Border>
+  </Grid>
+</Window>
