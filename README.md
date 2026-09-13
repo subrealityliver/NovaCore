@@ -41,3 +41,15 @@ Project Direction
 The long-term goal of NovaCore is to evolve into a complete, lightweight, and extensible desktop shell for Windows 11.
 
 Rather than modifying the existing Windows desktop, NovaCore explores the possibility of building a desktop environment from the ground up while maintaining compatibility with the Windows platform.
+
+Disclaimer
+
+NovaCore is an unfinished and experimental project currently under active development. Features may be incomplete, unstable, or subject to significant changes without notice.
+
+The software is provided "as is", without any warranties or guarantees of functionality, reliability, compatibility, or suitability for a particular purpose.
+
+By using NovaCore, you acknowledge that you do so at your own risk. The author is not responsible for any data loss, system instability, configuration changes, software conflicts, or other damage that may result from using the project.
+
+NovaCore may replace or interfere with the Windows Explorer shell and other system components. Users should therefore test the software in a controlled environment and maintain appropriate backups before using it as their primary Windows shell.
+
+This project is not affiliated with, endorsed by, or supported by Microso
